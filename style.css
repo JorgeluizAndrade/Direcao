@@ -1,0 +1,505 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #111827; /* Texto Escuro */
+  background-color: #99a7c5; /* Cinza Neutro (fundo da página) */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: #e5e7eb; /* Cinza Neutro */
+}
+
+.app-container {
+  background: #ffffff;
+  width: 100%;
+  max-width: 900px; /* Aumentei um pouco para caber melhor o grid no desktop */
+  margin: 12px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(30, 64, 175, 0.1); /* Sombra levemente azulada */
+  padding: 24px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: visible;
+}
+
+.tools {
+ display: flex;
+ align-items: center;
+ padding: 9px;
+}
+
+.circle {
+ padding: 0 4px;
+}
+
+.box {
+ display: inline-block;
+ align-items: center;
+ width: 10px;
+ height: 10px;
+ padding: 1px;
+ border-radius: 50%;
+}
+
+.red {
+ background-color: #ff605c;
+}
+
+.yellow {
+ background-color: #ffbd44;
+}
+
+.green {
+ background-color: #00ca4e;
+}
+
+
+h1,
+h2,
+h3 {
+  margin: 0 0 12px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1e40af; /* Azul Escuro */
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e40af; /* Azul Escuro */
+}
+
+p {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #111827;
+}
+
+.field {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e40af; /* Azul Escuro para labels */
+}
+
+input[type="text"],
+input[type="email"] {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus {
+  border-color: #f97316; /* Laranja no foco */
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+.small {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button {
+  border-radius: 999px;
+  border: none;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+/* BOTÃO PRIMÁRIO = LARANJA */
+button.primary {
+  background: #f97316; /* Laranja */
+  color: white;
+  flex: 1;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+button.primary:hover {
+  background: #ea580c; /* Laranja mais escuro no hover */
+  transform: translateY(-1px);
+}
+
+button.primary:active {
+  transform: translateY(1px);
+}
+
+button.primary:disabled {
+  background: #fdba74;
+  cursor: default;
+  box-shadow: none;
+}
+
+/* BOTÃO SECUNDÁRIO = CINZA/AZULADO */
+button.secondary {
+  background: #e5e7eb; /* Cinza Neutro */
+  color: #1f2937;
+  flex: 0.8;
+}
+
+button.secondary:hover {
+  background: #d1d5db;
+}
+
+/* ===== PROGRESSO (TOP HEADER) ===== */
+
+.divisions-progress {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr)); /* Mantém 6 colunas */
+  gap: 6px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+}
+
+.division-segment {
+  width: 100%;
+  padding: 6px 4px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  text-align: center;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.division-segment:hover {
+  border-color: #f97316; /* Laranja ao passar o mouse */
+  transform: translateY(-2px);
+}
+
+/* Segmento Atual = Azul Escuro (borda) + Azul Claro (fundo) */
+.division-segment.current {
+  border-color: #1e40af;
+  background: #dbeafe; 
+  color: #1e40af;
+  font-weight: 700;
+}
+
+/* Segmento Completado = Verde (Padrão de sucesso) ou Azul Escuro Sólido */
+.division-segment.completed {
+  border-color: #10b981; /* Mantendo verde para 'sucesso' */
+  background: #d1fae5;
+}
+
+.segment-squares {
+  display: flex;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.segment-square {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e5e7eb;
+}
+
+.segment-square.filled {
+  background: #f97316; /* Pontos preenchidos ficam laranjas */
+}
+
+/* ===== CAIXAS DE CONTEÚDO ===== */
+
+.section-box {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+/* ===== GRID RESPONSIVO (A CORREÇÃO QUE VOCÊ PEDIU) ===== */
+
+.question-list {
+  display: grid;
+  /* Cria colunas automáticas: Mínimo 260px.
+     Se a tela for pequena, fica 1 coluna. Se for grande, vira 2 ou 3. */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.question-card {
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  background: #f9fafb;
+  font-size: 0.92rem;
+  
+  /* Garante altura igual e conteúdo distribuído */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.question-card:hover {
+  border-color: #1e40af; /* Azul escuro no hover */
+}
+
+.question-card.drop-target {
+  outline: 2px dashed #f97316; /* Laranja para indicar onde soltar */
+  background: #fff7ed; /* Fundo laranja bem clarinho */
+  border-color: #f97316;
+}
+
+/* CORES DOS CARDS PONTUADOS (Baseados no Azul Claro) */
+.question-card.score-3 {
+  background: #dbeafe; /* Azul Claro */
+  border-color: #1e40af;
+}
+.question-card.score-2 {
+  background: #eff6ff; /* Azul muito claro */
+  border-color: #60a5fa;
+}
+.question-card.score-1 {
+  background: #f9fafb; /* Cinza claro */
+  border-color: #9ca3af;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.question-score-pill {
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  background: #e5e7eb;
+  color: #374151;
+  font-weight: 700;
+}
+
+/* ===== FOOTER (Fichas) ===== */
+
+@media (max-width: 768px) {
+  .footer-row {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+    padding: 12px;
+    background: #fff;
+  }
+  .content-row {
+    margin-bottom: 160px; /* Espaço para o footer fixo não cobrir o conteúdo */
+  }
+}
+
+.score-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.score-slot {
+  flex: 1;
+  min-width: 100px;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  background: #f9fafb;
+  cursor: grab;
+  transition: all 0.2s;
+}
+
+.score-slot:active {
+  cursor: grabbing;
+}
+
+/* Cores das fichas */
+.score-slot.score-3 {
+  background: #dbeafe; /* Azul Claro */
+  border-color: #1e40af;
+  color: #1e40af;
+}
+.score-slot.score-2 {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+}
+.score-slot.score-1 {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #374151;
+}
+
+.score-value {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.score-clear {
+  background: rgba(0,0,0,0.1);
+  color: #111;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+}
+.score-clear:hover {
+  background: #ef4444;
+  color: white;
+}
+
+/* ===== RESULTADOS ===== */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 99px;
+  font-size: 0.85rem;
+  background: #dbeafe; /* Azul Claro */
+  color: #1e40af; /* Azul Escuro */
+  font-weight: 600;
+  margin-right: 6px;
+  margin-top: 6px;
+  border: 1px solid #bfdbfe;
+}
+
+.bar {
+  height: 12px;
+  border-radius: 6px;
+  background: #e5e7eb;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.bar-inner {
+  height: 100%;
+  width: 0%;
+  /* Gradiente Laranja para destaque */
+  background: linear-gradient(90deg, #f97316, #ea580c);
+  transition: width 0.6s ease;
+}
+
+.result-area {
+  background-color: #eff6ff; /* Azul bem clarinho */
+  border: 1px solid #bfdbfe; /* Borda azul suave */
+  border-left: 5px solid #1e40af; /* Borda esquerda grossa em Azul Escuro para destaque */
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  color: #1e40af; /* Texto azul escuro */
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.result-area strong {
+  display: block; /* Força o título a ficar em uma linha separada, se preferir */
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+  color: #1e40af;
+}
+
+/* ===== ÁREA SECUNDÁRIA (RESULTADO 2) ===== */
+.box-sec {
+  background-color: #f9fafb; /* Fundo cinza/branco */
+  border: 1px solid #e5e7eb; /* Borda cinza */
+  border-left: 5px solid #f97316; /* Borda esquerda grossa em Laranja */
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.box-sec strong {
+  color: #111827;
+  font-size: 1rem;
+}
+
+/* ===== BOTÕES DE LINK (YOUTUBE, GOOGLE, TIKTOK) ===== */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  margin-top: 10px; /* Espaço entre o texto e os botões */
+  margin-right: 8px; /* Espaço entre um botão e outro */
+  
+  padding: 8px 16px;
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Efeito Hover nos botões - Fica Laranja */
+.link-btn:hover {
+  background-color: #f97316; /* Laranja da paleta */
+  border-color: #f97316;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(249, 115, 22, 0.25);
+}
+
+.link-btn:active {
+  transform: translateY(0);
+}
