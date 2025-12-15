@@ -2,7 +2,6 @@ import { divisions, areas, youtubeLink, googleLink, tiktokLink, toBase64 } from 
 import { setAnswer, computeTotals, goToDivision, responses } from "./navigation.js"
 
 // ===== CONFIGURAÇÃO DA URL DE ENVIO =====
-// Alterei o nome da chave para não conflitar com a versão anterior (dons)
 const HISTORY_KEY = "vocacao_profissional_result_v1";
 
 // monta um resumo enxuto das respostas:
@@ -150,7 +149,7 @@ function renderDivisionScreen() {
   const divisionIndex = currentStep;
   const division = divisions[divisionIndex];
   const totalDivisions = divisions.length;
-  const questionsInDivision = division.items.length;
+  const questionsInDivision = 8;
 
   const container = document.createElement("div");
 
@@ -210,7 +209,7 @@ function renderDivisionScreen() {
   left.textContent = `Bloco ${division.id} de ${totalDivisions}`;
 
   const right = document.createElement("span");
-  right.textContent = `${questionsInDivision} opções neste bloco`;
+  right.innerHTML = `${questionsInDivision} opções neste bloco`;
 
   progressText.appendChild(left);
   progressText.appendChild(right);
@@ -229,7 +228,7 @@ function renderDivisionScreen() {
   const divisionLabel = document.createElement("div");
   divisionLabel.className = "small";
   divisionLabel.textContent =
-    "Escolha até 3 frases que mais descrevem você e arraste as fichas 3, 2 e 1 para elas (3 = a que mais te descreve).";
+    "Escolha até 3 frases que mais descrevem você e arraste as fichas 3, 2 e 1 para elas (3 = a que mais te descreve). ";
   divisionBox.appendChild(divisionLabel);
 
   const divResponses = responses[divisionIndex];
@@ -247,9 +246,18 @@ function renderDivisionScreen() {
     `(pontos utilizados: ${usedValues || "nenhum ainda"}).`;
   divisionBox.appendChild(divisionInfo);
 
+
+  const divisionInfoCelular = document.createElement("div");
+  divisionInfo.className = "small";
+  divisionInfo.innerHTML = "<span class='small-destaque'>Para celulares, basta apenas precionar e arrastar para a frase. </span>"
+
+  divisionBox.appendChild(divisionInfoCelular);
+
+
+
   container.appendChild(divisionBox);
 
-  // ===== LISTA COM AS 9 PERGUNTAS =====
+  // ===== LISTA COM AS 8 PERGUNTAS =====
   const questionsBox = document.createElement("div");
   questionsBox.className = "section-box content-row";
 

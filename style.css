@@ -121,6 +121,11 @@ input[type="email"]:focus {
   color: #6b7280;
 }
 
+.small-destaque {
+  font-size: 0.8rem;
+  color: #f07400;
+}
+
 .buttons-row {
   display: flex;
   gap: 12px;
@@ -184,6 +189,22 @@ button.secondary:hover {
   margin-bottom: 8px;
   padding-bottom: 4px;
 }
+
+
+.progress-text{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .progress-text {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 
 .division-segment {
   width: 100%;
