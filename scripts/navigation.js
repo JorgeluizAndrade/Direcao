@@ -1,8 +1,6 @@
 import { divisions } from "./utils.js";
 
 
-
-
 export function goToDivision(divisionIndex) {
   if (divisionIndex < 0 || divisionIndex >= divisions.length) return;
   currentStep = divisionIndex;

@@ -1,3 +1,5 @@
+export const HISTORY_KEY = "vocacao_profissional_result_v1";
+
 export const areas = [
   { letter: "A", name: "Tecnologia e Computação" },
   { letter: "B", name: "Comunicação e Criatividade" },
@@ -459,19 +461,20 @@ export function toBase64(str) {
 
 export function youtubeLink(area) {
   const q = encodeURIComponent(
-    `${area} carreira faculdade rotina profissional`
+    `${area} podcast carreira realidade mercado de trabalho como começar`
   );
-  return `https://www.youtube.com/results?search_query=${q}`;
-}
+  return `https://www.youtube.com/results?search_query=${q}&sp=EgIYAg%253D%253D`;}
 
 export function tiktokLink(area) {
-  const q = encodeURIComponent(`${area} rotina faculdade carreira`);
+  const q = encodeURIComponent(
+    `${area} dicas carreira atuando na area dia a dia trabalho`
+  );
   return `https://www.tiktok.com/search?q=${q}`;
 }
 
 export function googleLink(area) {
   const q = encodeURIComponent(
-    `${area} o que faz mercado de trabalho faculdade vale a pena`
+    `${area} guia carreira completo mercado de trabalho desafios e perspectivas`
   );
   return `https://www.google.com/search?q=${q}`;
 }
