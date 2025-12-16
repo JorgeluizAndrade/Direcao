@@ -487,14 +487,13 @@ button.secondary:hover {
   font-size: 1rem;
 }
 
-/* ===== BOTÕES DE LINK (YOUTUBE, GOOGLE, TIKTOK) ===== */
 .link-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   
-  margin-top: 10px; /* Espaço entre o texto e os botões */
-  margin-right: 8px; /* Espaço entre um botão e outro */
+  margin-top: 10px; 
+  margin-right: 8px; 
   
   padding: 8px 16px;
   background-color: #ffffff;
@@ -512,9 +511,8 @@ button.secondary:hover {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-/* Efeito Hover nos botões - Fica Laranja */
 .link-btn:hover {
-  background-color: #f97316; /* Laranja da paleta */
+  background-color: #f97316; 
   border-color: #f97316;
   color: #ffffff;
   transform: translateY(-2px);
@@ -523,4 +521,22 @@ button.secondary:hover {
 
 .link-btn:active {
   transform: translateY(0);
+}
+
+.titleEagr {
+  text-align: center;
+  margin-top: 32px; 
+  margin-bottom: 16px;
+  color: #1e40af;
+  border-top: 1px dashed #d1d5db;
+  padding-top: 24px;
+}
+
+.result-area, .box-sec {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.link-btn {
+  margin-bottom: 4px;
 }

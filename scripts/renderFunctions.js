@@ -8,16 +8,12 @@ import { currentStep, setCurrentStep } from "./state.js";
 
 let participantName = "";
 let isSending = false;
-const totalQuestions = divisions.length * 8;
 
 const appRoot = document.getElementById("app");
 let render = () => {};
 export function setRender(fn) {
   render = fn;
 }
-
-
-
 
 
 export function renderIntroScreen() {
@@ -39,7 +35,7 @@ export function renderIntroScreen() {
     container.appendChild(tools);
   
     const title = document.createElement("h1");
-    title.textContent = "Indicador de Vocação Profissional";
+    title.textContent = "Direção - Indicador de Vocação Profissional";
     container.appendChild(title);
   
     const description = document.createElement("p");
@@ -398,22 +394,29 @@ export function renderSummaryScreen() {
 
   const maxValue = Math.max(1, ...Object.values(totals));
 
-  // Verifica se há mudança e envia automaticamente
+  // Lógica de Hash e LocalStorage (Mantida igual)
   const compactAnswers = buildCompactAnswers();
   const hashSource = JSON.stringify({
     name: participantName.trim(),
     answers: compactAnswers,
   });
+  
+  // Função toBase64 deve estar acessível no seu escopo
   const currentHash = toBase64(hashSource);
 
   let lastHash = null;
   try {
     lastHash = localStorage.getItem(HISTORY_KEY);
   } catch (e) {
-    // se der erro no localStorage, só ignora
+    // ignora erro
   }
 
+  // --- INÍCIO DA CRIAÇÃO DO CONTAINER ---
   const container = document.createElement("div");
+  // Adicionei a classe app-container aqui caso ela seja criada dinamicamente, 
+  // ou garanta que o CSS aplique ao pai se o container for filho.
+  // Se o seu 'appRoot' já é o container, ok. Se não, adicione a classe:
+  // container.className = "app-container"; 
 
   const title = document.createElement("h2");
   title.textContent = "Resultado Geral";
@@ -429,6 +432,7 @@ export function renderSummaryScreen() {
   participantInfo.textContent = `Participante: ${participantName}`;
   container.appendChild(participantInfo);
 
+  // --- BOX DE TOP 3 ÁREAS ---
   const topAreasBox = document.createElement("div");
   topAreasBox.className = "top-areas";
   const topTitle = document.createElement("strong");
@@ -443,9 +447,9 @@ export function renderSummaryScreen() {
     } pts`;
     topAreasBox.appendChild(badge);
   });
-
   container.appendChild(topAreasBox);
 
+  // --- TABELA DE DADOS ---
   const table = document.createElement("table");
   table.className = "summary-table";
   const thead = document.createElement("thead");
@@ -475,6 +479,7 @@ export function renderSummaryScreen() {
   table.appendChild(tbody);
   container.appendChild(table);
 
+  // --- GRÁFICO DE BARRAS ---
   areas.forEach((g) => {
     const row = document.createElement("div");
     row.className = "bar-row";
@@ -506,66 +511,75 @@ export function renderSummaryScreen() {
     "Lembre-se: este teste é apenas uma ferramenta de autoconhecimento. Pesquise sobre as profissões, converse com professores ou profissionais da área e observe quais atividades te trazem mais satisfação no dia a dia.";
   container.appendChild(note);
 
+  // --- SEÇÃO "E AGORA?" ---
+  // AQUI FOI A MUDANÇA PRINCIPAL: Usando 'container.appendChild' em vez de 'appRoot.appendChild'
+  
   const sorted = areas
     .slice()
     .sort((a, b) => totals[b.letter] - totals[a.letter]);
 
-  const titleEagr = document.createElement("h1");
+  const titleEagr = document.createElement("h2"); // Mudei de h1 para h2 para manter hierarquia visual dentro do box
   titleEagr.className = "titleEagr";
   titleEagr.textContent = "E agora?";
-  appRoot.appendChild(titleEagr);
+  container.appendChild(titleEagr); // Mudado de appRoot para container
 
+  // Box Principal
   const main = document.createElement("div");
   main.className = "result-area";
   main.innerHTML = `<strong>Área principal:</strong> ${sorted[0].name}`;
-  main.innerHTML += `<br><a class='link-btn' href='${youtubeLink(
-    sorted[0].name
-  )}' target='_blank'>YouTube</a>`;
+  
+  // Wrapper para botões ficarem organizados
+  main.innerHTML += `<div style="margin-top:8px">`;
+  main.innerHTML += `<a class='link-btn' href='${youtubeLink(sorted[0].name)}' target='_blank'>YouTube</a>`;
+  main.innerHTML += `<a class='link-btn' href='${googleLink(sorted[0].name)}' target='_blank'>Google</a>`;
+  main.innerHTML += `<a class='link-btn' href='${tiktokLink(sorted[0].name)}' target='_blank'>TikTok</a>`;
+  main.innerHTML += `</div>`;
+  
+  container.appendChild(main); // Mudado de appRoot para container
 
-  main.innerHTML += `<a class='link-btn' href='${googleLink(
-    sorted[0].name
-  )}' target='_blank'>Google</a>`;
-  main.innerHTML += `<br><a class='link-btn' href='${youtubeLink(
-    sorted[1].name
-  )}' target='_blank'>Titok</a>`;
-  appRoot.appendChild(main);
-
+  // Box Secundário
   const sec = document.createElement("div");
   sec.className = "box-sec";
   sec.innerHTML = `<strong>Área secundária:</strong> ${sorted[1].name}`;
+  
+  // Wrapper para botões
+  sec.innerHTML += `<div style="margin-top:8px">`;
+  sec.innerHTML += `<a class='link-btn' href='${youtubeLink(sorted[1].name)}' target='_blank'>YouTube</a>`;
+  sec.innerHTML += `<a class='link-btn' href='${googleLink(sorted[1].name)}' target='_blank'>Google</a>`;
+  sec.innerHTML += `<a class='link-btn' href='${tiktokLink(sorted[1].name)}' target='_blank'>TikTok</a>`;
+  sec.innerHTML += `</div>`;
 
-  sec.innerHTML += `<br><a class='link-btn' href='${youtubeLink(
-    sorted[1].name
-  )}' target='_blank'>YouTube</a>`;
-  sec.innerHTML += `<a class='link-btn' href='${googleLink(
-    sorted[1].name
-  )}' target='_blank'>Google</a>`;
-  sec.innerHTML += `<br><a class='link-btn' href='${tiktokLink(
-    sorted[1].name
-  )}' target='_blank'>Titok</a>`;
-  appRoot.appendChild(sec);
+  container.appendChild(sec); // Mudado de appRoot para container
 
   const noteAgr = document.createElement("p");
-  noteAgr.className = "small";
-  noteAgr.textContent =
-    "Explore com calma. Clareza vem da prática, não de um teste.";
-  appRoot.appendChild(noteAgr);
+  noteAgr.className = "small-destaque"; // Usei sua classe nova
+  noteAgr.style.textAlign = "center";
+  noteAgr.style.marginTop = "15px";
+  noteAgr.textContent = "Explore com calma. Clareza vem da prática, não de um teste.";
+  container.appendChild(noteAgr); // Mudado de appRoot para container
 
+  // --- BOTÕES DE AÇÃO ---
   const buttons = document.createElement("div");
   buttons.className = "buttons-row";
 
   const backButton = document.createElement("button");
   backButton.className = "secondary";
-  backButton.textContent = "Voltar para o último bloco";
+  backButton.textContent = "Voltar";
   backButton.onclick = () => {
-    setCurrentStep(divisions.length - 1);
-    render();
+    // Certifique-se que setCurrentStep e divisions estão no escopo
+    if (typeof setCurrentStep === 'function') {
+        setCurrentStep(divisions.length - 1); 
+        render();
+    } else {
+        // Fallback caso setCurrentStep não esteja global
+        console.error("Função de navegação não encontrada");
+    }
   };
   buttons.appendChild(backButton);
 
   const saveButton = document.createElement("button");
   saveButton.className = "primary";
-  saveButton.textContent = isSending ? "Salvando..." : "Salvar";
+  saveButton.textContent = isSending ? "Salvando..." : "Salvar Resultado";
   saveButton.disabled = isSending;
   saveButton.onclick = () => {
     saveSnapshot();
@@ -574,6 +588,10 @@ export function renderSummaryScreen() {
 
   container.appendChild(buttons);
 
-  appRoot.appendChild(container);
+  // Finalmente, limpa o appRoot e adiciona o container único
+  // Certifique-se de que appRoot está definido
+  if(typeof appRoot !== 'undefined') {
+      appRoot.innerHTML = ""; 
+      appRoot.appendChild(container);
+  }
 }
-
