@@ -1,8 +1,8 @@
 import { buildCompactAnswers } from "./logic/buildCompactAnswers.js";
 import { responses } from "./navigation.js";
-import { HISTORY_KEY } from "./utils.js";
+import { HISTORY_KEY, toBase64 } from "./utils.js";
 
-
+let participantName = ""; 
 
 export function saveSnapshot() {
     // 2) resumo compacto das respostas
