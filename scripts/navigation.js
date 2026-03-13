@@ -1,10 +1,16 @@
 import { divisions } from "./utils.js";
+import { setCurrentStep } from "./state.js";
 
+let renderFn = () => {};
+
+export function setNavigationRender(fn) {
+  renderFn = fn;
+}
 
 export function goToDivision(divisionIndex) {
   if (divisionIndex < 0 || divisionIndex >= divisions.length) return;
-  currentStep = divisionIndex;
-  render();
+  setCurrentStep(divisionIndex);
+  renderFn();
 }
 
 
@@ -12,10 +18,8 @@ export function goToDivision(divisionIndex) {
 export const responses = Array.from({ length: divisions.length }, () =>
   Array(8).fill(0)
 );
+
 // ===== FUNÇÕES DE VALIDAÇÃO / CÁLCULO =====
-
-
-
 
 export function setAnswer(divisionIndex, itemIndex, newVal) {
   newVal = parseInt(newVal, 10);
@@ -33,7 +37,7 @@ export function setAnswer(divisionIndex, itemIndex, newVal) {
     }, 0);
     if (nonZeroCount + 1 > 3) {
       alert(
-        "Você só pode marcar até 3 frases com valor 1, 2 ou 3 em cada divisão."
+        "Você só pode escolher até 3 frases em cada bloco."
       );
       return;
     }
@@ -44,7 +48,7 @@ export function setAnswer(divisionIndex, itemIndex, newVal) {
     );
     if (valueAlreadyUsed) {
       alert(
-        "Em cada divisão, cada valor (1, 2 e 3) só pode ser usado uma vez."
+        "Cada pontuação (1, 2 e 3) só pode ser usada uma vez por bloco."
       );
       return;
     }
